@@ -1,0 +1,25 @@
+/* ../styles/layout.module.css */
+
+.bg-apple-pattern {
+  background-image: url("/apple.jpg");
+  background-size: cover;
+  background-repeat: repeat;
+  background-color: #FCE7F3;
+  background-position: center; 
+}
+
+.text-orange-500 {
+  color: orange;
+  font-weight: bold; 
+}
+
+.hover:text-gray-500 {
+  color: gray;
+  text-decoration: underline;
+}
+
+.transition-colors {
+  transition: color 0.3s ease;
+  transition-property: color, background-color; 
+}
+
