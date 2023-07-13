@@ -1,0 +1,9 @@
+overwrite: true
+schema: "https://instagram-gw.herokuapp.com/graphql"
+documents: "./documents/**/*.ts"
+generates:
+  ./generated/graphql.ts:
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-react-apollo"

@@ -1,0 +1,38 @@
+{
+    "expo": {
+      "name": "kidsgram-web",
+      "slug": "kidsgram-web",
+      "version": "0.1.0",
+      "orientation": "portrait",
+      "icon": "./assets/icon_instagram_logo.png",
+      "splash": {
+        "image": "./assets/instagram_splash.png",
+        "resizeMode": "contain",
+        "backgroundColor": "#ffffff"
+      },
+      "updates": {
+        "fallbackToCacheTimeout": 0
+      },
+      "assetBundlePatterns": [
+        "**/*"
+      ],
+      "ios": {
+        "supportsTablet": true,
+        "bundleIdentifier": "com.gw.kidsgram-web",
+        "buildNumber": "2.0.0"
+      },
+      "android": {
+        "package": "com.gw.kidsgram-web",
+        "versionCode": 2,
+        "adaptiveIcon": {
+          "foregroundImage": "./assets/icon_instagram_logo.png",
+          "backgroundColor": "#FFFFFF"
+        }
+      },
+      "web": {
+        "favicon": "./assets/icon_instagram_logo.png"
+      },
+      "userInterfaceStyle": "automatic"
+    }
+  }
+  
