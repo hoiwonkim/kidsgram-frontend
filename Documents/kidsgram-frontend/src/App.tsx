@@ -16,7 +16,7 @@ const App: React.FC = () => {
     <>
       <ApolloProvider client={client}>
         <HelmetProvider>
-          <ThemeProvider theme={isDarkMode === true ? darkTheme : lightTheme}>
+          <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
             <GlobalStyle />
             <Router />
           </ThemeProvider>
