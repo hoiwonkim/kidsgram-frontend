@@ -1,19 +1,17 @@
-// ./src/pages/Login.tsx
-import { Link, useLocation, useNavigate, Location } from "react-router-dom";
-import { useForm } from "react-hook-form";
 import styled from "styled-components";
+import Separator from "../shared/Separator";
+import FormError from "../shared/FormError";
+import AuthLayout from "../shared/AuthLayout";
+import AppDownload from "../shared/AppDownload";
+import PageTitle from "../components/PageTitle";
+import Notification from "../shared/Notification";
+import { handleLogin } from "../apollo";
+import { useForm } from "react-hook-form";
+import { Button, Input } from "../shared/shared";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebookSquare } from "@fortawesome/free-brands-svg-icons";
 import { LoginMutation, useLoginMutation } from "../generated/graphql";
-import AuthLayout from "../shared/AuthLayout";
-import AppDownload from "../shared/AppDownload";
-import Button from "../shared/Button";
-import FormError from "../shared/FormError";
-import Input from "../shared/Input";
-import PageTitle from "../components/PageTitle";
-import Notification from "../shared/Notification";
-import Separator from "../shared/Separator";
-import { handleLogin } from "../apollo";
+import { Link, useNavigate, NavigateFunction, useLocation, Location } from "react-router-dom";
 
 interface LoginState {
   username?: string;
@@ -83,10 +81,7 @@ const Login = () => {
     setError,
     clearErrors,
     formState: { errors, isValid },
-  } = useForm<FormData>({
-    mode: "onChange",
-    defaultValues: { username: state?.username, password: state?.password },
-  });
+  } = useForm<FormData>({ mode: "onChange", defaultValues: { username: state?.username, password: state?.password } });
   const [loginMutation, { loading: loginLoading }] = useLoginMutation({
     onCompleted: ({ login: { ok, message, token } }: LoginMutation) => {
       if (ok === false) {
@@ -116,32 +111,27 @@ const Login = () => {
           {state?.message && <Notification message={state.message} />}
           <Input
             {...register("username", {
-              required: "Please enter your username.",
+              required: "사용자 이름을 입력하세요.",
+              pattern: { message: "한글, 특수문자를 제외한 1~15자 이내 영문만 사용 가능합니다.", value: /^[a-z0-9]{1,15}$/g },
               maxLength: 15,
-              pattern: /^[a-zA-Z0-9]+$/,
+              validate: (value: string) => {
+                return true;
+              },
             })}
             onFocus={() => clearErrors("loginResult")}
             hasError={Boolean(errors?.username?.message)}
             type="text"
             maxLength={15}
-            placeholder="username"
+            placeholder="사용자 이름"
           />
-          <FormError
-            message={
-              errors?.username?.message ||
-              "Only English within 1 to 15 characters, excluding Korean and special characters, can be used."
-            }
-          />
+          <FormError message={errors?.username?.message} />
           <Input
-            {...register("password", {
-              required: "Please enter a password.",
-              maxLength: 15,
-            })}
+            {...register("password", { required: "비밀번호를 입력하세요.", maxLength: 15 })}
             onKeyDown={() => clearErrors("loginResult")}
             hasError={Boolean(errors?.password?.message)}
             type="password"
             maxLength={15}
-            placeholder="Password"
+            placeholder="비밀번호"
           />
           <FormError message={errors?.password?.message} />
           <Button disabled={!isValid || loginLoading === true} type="submit">
@@ -151,12 +141,12 @@ const Login = () => {
           <Separator />
           <FacebookLogin>
             <FontAwesomeIcon icon={faFacebookSquare} />
-            <span>Login with Facebook</span>
+            <span>Facebook으로 로그인</span>
           </FacebookLogin>
         </FormContent>
         <AccountContent>
           <h1>
-            Don't have an account? <Link to={"/signup"}>Sign up</Link>
+            계정이 없으신가요? <Link to={"/signup"}>가입하기</Link>
           </h1>
         </AccountContent>
         <AppDownload />

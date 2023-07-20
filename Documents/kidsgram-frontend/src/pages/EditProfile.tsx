@@ -1,4 +1,3 @@
-// ./src/pages/EditProfile.tsx
 import styled from "styled-components";
 import UploadPhoto from "./UploadPhoto";
 import Footer from "../components/Footer";
@@ -146,7 +145,7 @@ const EditProfile = () => {
       return;
     }
 
-    const isConfirm: boolean = window.confirm("Are you sure you want to delete your account?");
+    const isConfirm: boolean = window.confirm("계정을 탈퇴하시겠습니까?");
     if (isConfirm === true) {
       deleteAccountMutation({ variables: { userId: loggedInUser?.id as number } });
     }
@@ -182,73 +181,73 @@ const EditProfile = () => {
     if (username !== loggedInUser?.username) {
       navigate("/");
     }
-  }, [username, loggedInUser?.username, navigate]);
+  });
 
   return (
     <MainLayout>
       <AnimatePresence>{uploadPhotoPathMath && <UploadPhoto />}</AnimatePresence>
-      <PageTitle title={"Edit profile"} />
+      <PageTitle title={"프로필 편집"} />
       <Container>
         <EditProfileForm onSubmit={handleSubmit(onValid)} method="POST" encType="multipart/form-data">
           <label htmlFor="avatar">
             {avatarPreview === "" ? <Avatar src={loggedInUser?.avatarUrl || "/images/basic_user.jpeg"} alt="" /> : <Avatar src={avatarPreview} alt="" />}
-            <ChangeAvatarButton>Change your profile picture</ChangeAvatarButton>
+            <ChangeAvatarButton>프로필 사진 변경</ChangeAvatarButton>
             <input {...register("avatar")} id="avatar" type="file" accept="image/*" style={{ display: "none" }} />
           </label>
           <label htmlFor="email">
-            <span>Email</span>
+            <span>이메일</span>
             <Input
               {...register("email", {
                 pattern: {
-                  message: "Only English email format is available, excluding Korean and special characters.",
-                  value: /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0 -9a-zA-Z])*.[a-zA-Z]{2,3}$/gi,
+                  message: "한글, 특수문자를 제외한 영문 이메일 형식만 사용 가능합니다.",
+                  value: /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/gi,
                 },
-                maxLength: { value: 30, message: "E-mail can contain up to 30 digits." }
+                maxLength: 30,
               })}
               hasError={Boolean(errors?.email?.message)}
               id="email"
               type="email"
               maxLength={30}
-              placeholder="Email Address"
+              placeholder="이메일 주소"
             />
             <FormError message={errors?.email?.message} />
           </label>
           <label htmlFor="name">
-            <span>Name</span>
-            <Input {...register("name", { maxLength: 15 })} hasError={Boolean(errors.name?.message)} id="name" type="text" maxLength={15} placeholder="Name" />
+            <span>이름</span>
+            <Input {...register("name", { maxLength: 15 })} hasError={Boolean(errors.name?.message)} id="name" type="text" maxLength={15} placeholder="이름" />
             <FormError message={errors?.name?.message} />
           </label>
           <label htmlFor="username">
-            <span>Username</span>
+            <span>사용자 이름</span>
             <Input
               {...register("username", {
-                maxLength: { value: 15, message: "The user name can contain up to 15 digits." },
-                pattern: { message: "Only English email format is available, excluding Korean and special characters.", value: /^[a-z0-9]{1,15}$/g },
+                maxLength: 15,
+                pattern: { message: "한글, 특수문자를 제외한 1~15자 이내 영문만 사용 가능합니다.", value: /^[a-z0-9]{1,15}$/g },
               })}
               onFocus={() => clearErrors("editProfileResult")}
               hasError={Boolean(errors?.username?.message)}
               id="username"
               type="text"
               maxLength={15}
-              placeholder="Username"
+              placeholder="사용자 이름"
             />
             <FormError message={errors?.username?.message} />
           </label>
           <label htmlFor="password">
-            <span>Password</span>
-            <Input {...register("password", { maxLength: 15 })} hasError={Boolean(errors?.password?.message)} id="password" type="password" maxLength={15} placeholder="Password" />
+            <span>비밀번호</span>
+            <Input {...register("password", { maxLength: 15 })} hasError={Boolean(errors?.password?.message)} id="password" type="password" maxLength={15} placeholder="비밀번호" />
             <FormError message={errors?.password?.message} />
           </label>
           <label htmlFor="bio">
-            <span>Introduction</span>
-            <Input {...register("bio", { maxLength: 100 })} id="bio" type="text" maxLength={100} placeholder="Introduction" />
+            <span>소개</span>
+            <Input {...register("bio", { maxLength: 100 })} id="bio" type="text" maxLength={100} placeholder="소개" />
           </label>
           <div>
             <EditProfileButton disabled={!isValid} onClick={handleSubmit(onValid)} type="submit">
-              Edit profile
+              프로필 수정
             </EditProfileButton>
             <DeleteAccountButton onClick={handleDeleteAccount} type="button">
-              Account withdrawal
+              계정 탈퇴
             </DeleteAccountButton>
           </div>
         </EditProfileForm>

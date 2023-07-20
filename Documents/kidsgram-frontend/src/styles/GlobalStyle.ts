@@ -1,4 +1,3 @@
-// ./src/styles/GlobalStyle.ts
 import reset from "styled-reset";
 import { createGlobalStyle, DefaultTheme, GlobalStyleComponent } from "styled-components";
 

@@ -1,4 +1,3 @@
-// ./src/pages/UploadPhoto.tsx
 import styled from "styled-components";
 import Avatar from "../shared/Avatar";
 import Loading from "../shared/Loading";

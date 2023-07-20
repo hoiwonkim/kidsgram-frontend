@@ -1,11 +1,11 @@
 // ./src/apollo.ts
-import { ApolloClient, ApolloLink, createHttpLink, GraphQLRequest, InMemoryCache, makeVar, NormalizedCacheObject, split } from "@apollo/client";
-import { getMainDefinition } from "@apollo/client/utilities";
 import { onError } from "@apollo/client/link/error";
-import { setContext } from "@apollo/client/link/context";
 import { WebSocketLink } from "@apollo/client/link/ws";
 import { createUploadLink } from "apollo-upload-client";
+import { setContext } from "@apollo/client/link/context";
+import { getMainDefinition } from "@apollo/client/utilities";
 import { FragmentDefinitionNode, OperationDefinitionNode } from "graphql";
+import { ApolloClient, ApolloLink, createHttpLink, GraphQLRequest, InMemoryCache, makeVar, NormalizedCacheObject, split } from "@apollo/client";
 
 const TOKEN: string = "TOKEN";
 const DARK_MODE: string = "DARK_MODE";
@@ -59,7 +59,7 @@ const uploadHttpLink: ApolloLink = createUploadLink({
 const uploadHttpLinks: ApolloLink = authLink.concat(errorLink).concat(uploadHttpLink);
 
 const wsLink: WebSocketLink = new WebSocketLink({
-  uri: process.env.NODE_ENV === "production" ? "wss://kidsgram-gw.herokuapp.com/graphql" : "ws://localhost:4000/graphql",
+  uri: process.env.NODE_ENV === "production" ? "wss://kidsgram.herokuapp.com/graphql" : "ws://localhost:4000/graphql",
   options: {
     reconnect: true,
     connectionParams: () => ({

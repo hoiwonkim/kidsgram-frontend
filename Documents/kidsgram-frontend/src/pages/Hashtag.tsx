@@ -1,5 +1,3 @@
-// ./src/pages/Hashtag.tsx
-import { useError } from "../hooks/useError";
 import styled from "styled-components";
 import Avatar from "../shared/Avatar";
 import MainLayout from "../shared/MainLayout";
@@ -10,13 +8,7 @@ import { FaComment } from "react-icons/fa";
 import { BsHeartFill } from "react-icons/bs";
 import { AnimatePresence } from "framer-motion";
 import { useSeeHashtagQuery } from "../generated/graphql";
-import {
-  useParams,
-  NavigateFunction,
-  useNavigate,
-  PathMatch,
-  useMatch,
-} from "react-router";
+import { useParams, NavigateFunction, useNavigate, PathMatch, useMatch } from "react-router";
 
 type HashtagParams = {
   name: string;
@@ -138,42 +130,24 @@ const HashtagPhotoIcons = styled.div`
 const Hashtag = () => {
   const { name } = useParams<HashtagParams>();
   const navigate: NavigateFunction = useNavigate();
-  const photoPathMath: PathMatch<"id"> | null = useMatch(
-    "/hashtags/:name/photos/:id"
-  );
-  const uploadPhotoPathMath: PathMatch<"name"> | null = useMatch(
-    `/hashtags/:name/photos/upload`
-  );
-  const {
-    data: seeHashtagData,
-    loading: seeHashtagLoading,
-    error,
-  } = useSeeHashtagQuery({ variables: { name: `#${name}` } });
+  const photoPathMath: PathMatch<"id"> | null = useMatch("/hashtags/:name/photos/:id");
+  const uploadPhotoPathMath: PathMatch<"name"> | null = useMatch(`/hashtags/:name/photos/upload`);
+  const { data: seeHashtagData, loading: seeHashtagLoading } = useSeeHashtagQuery({ variables: { name: `#${name}` } });
 
-  useError(error);
-
-  const handleOpenPhotoDetail = (id: number | string | undefined): void => {
-    if (typeof id !== "undefined") {
-      navigate(`/hashtags/${name}/photos/${id}`);
-    }
+  const handleOpenPhotoDetail = (id: number | undefined): void => {
+    navigate(`/hashtags/${name}/photos/${id}`);
   };
 
   return (
     <MainLayout>
-      <AnimatePresence>
-        {uploadPhotoPathMath && <UploadPhoto />}
-      </AnimatePresence>
+      <AnimatePresence>{uploadPhotoPathMath && <UploadPhoto />}</AnimatePresence>
       <PageTitle title={`#${name} 해시태그`} />
       {seeHashtagLoading === false ? (
         <Container>
           <HashtagHeader>
             <HashtagImage>
               <Avatar
-                avatarUrl={
-                  (seeHashtagData?.seeHashtag.hashtag?.photos &&
-                    seeHashtagData?.seeHashtag.hashtag?.photos[0]?.photoUrl) ||
-                  "/images/basic_hashtag.png"
-                }
+                avatarUrl={(seeHashtagData?.seeHashtag.hashtag?.photos && seeHashtagData?.seeHashtag.hashtag?.photos[0]?.photoUrl) || "/images/basic_hashtag.png"}
                 size="155px"
               />
             </HashtagImage>
@@ -183,10 +157,7 @@ const Hashtag = () => {
               </HashtagName>
               <HashtagPost>
                 <span>
-                  게시물{" "}
-                  <strong>
-                    {seeHashtagData?.seeHashtag.hashtag?.totalPhotos}
-                  </strong>
+                  게시물 <strong>{seeHashtagData?.seeHashtag.hashtag?.totalPhotos}</strong>
                 </span>
               </HashtagPost>
             </HashtagInfo>
@@ -195,20 +166,19 @@ const Hashtag = () => {
             {seeHashtagData?.seeHashtag.hashtag?.photos &&
               seeHashtagData?.seeHashtag?.hashtag?.photos.map((photo) => (
                 <HashtagPhoto key={photo?.id}>
-                  {photoPathMath &&
-                    photoPathMath.params.id === String(photo?.id) && (
-                      <AnimatePresence>
-                        <PhotoDetail
-                          id={photo?.id}
-                          user={photo?.user}
-                          photoUrl={photo?.photoUrl}
-                          isLiked={photo?.isLiked}
-                          totalLikes={photo?.totalLikes}
-                          caption={photo?.caption}
-                          createdAt={photo?.createdAt}
-                        />
-                      </AnimatePresence>
-                    )}
+                  {photoPathMath && photoPathMath.params.id === String(photo?.id) && (
+                    <AnimatePresence>
+                      <PhotoDetail
+                        id={photo?.id}
+                        user={photo?.user}
+                        photoUrl={photo?.photoUrl}
+                        isLiked={photo?.isLiked}
+                        totalLikes={photo?.totalLikes}
+                        caption={photo?.caption}
+                        createdAt={photo?.createdAt}
+                      />
+                    </AnimatePresence>
+                  )}
                   <Overlay onClick={() => handleOpenPhotoDetail(photo?.id)}>
                     <HashtagPhotoIcons>
                       <span>

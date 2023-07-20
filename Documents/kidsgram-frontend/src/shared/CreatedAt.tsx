@@ -1,3 +1,4 @@
+// ./src/shared/CreatedAt.tsx
 import "moment/locale/ko";
 import moment from "moment";
 import styled from "styled-components";

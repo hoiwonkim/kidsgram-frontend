@@ -1,3 +1,4 @@
+// /.src/components/Header.tsx
 import styled, { keyframes } from "styled-components";
 import Avatar from "../shared/Avatar";
 import Username from "../shared/Username";

@@ -1,4 +1,3 @@
-// ./src/Router.tsx
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
@@ -17,27 +16,28 @@ const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
-        {isLoggedIn && <Route path="photos/upload" element={<Home />} />}
-        <Route path="photos/:id" element={<Home />} />
+        <Route path="/" element={<Home />}>
+          {isLoggedIn === true && <Route path="photos/upload" element={<Home />} />}
+          <Route path="photos/:id" element={<Home />} />
+        </Route>
         <Route path="/users/all" element={<SeeUsers />} />
-        <Route path="users/:username" element={<Profile />} />
-        {isLoggedIn && (
-          <>
-            <Route path="users/:username/photos/upload" element={<Profile />} />
-            <Route path="users/:username/edit" element={<EditProfile />} />
-          </>
+        <Route path="users/:username" element={<Profile />}>
+          {isLoggedIn === true && <Route path="photos/upload" element={<Profile />} />}
+          <Route path="photos/:id" element={<Profile />} />
+          <Route path="followers" element={<Profile />} />
+          <Route path="following" element={<Profile />} />
+        </Route>
+        {isLoggedIn === true && (
+          <Route path="/users/:username/edit" element={<EditProfile />}>
+            <Route path="photos/upload" element={<EditProfile />} />
+          </Route>
         )}
-        <Route path="users/:username/photos/:id" element={<Profile />} />
-        <Route path="users/:username/followers" element={<Profile />} />
-        <Route path="users/:username/following" element={<Profile />} />
-        <Route path="hashtags/:name" element={<Hashtag />} />
-        {isLoggedIn && (
-          <Route path="hashtags/:name/photos/upload" element={<Hashtag />} />
-        )}
-        <Route path="hashtags/:name/photos/:id" element={<Hashtag />} />
-        {!isLoggedIn && <Route path="/login" element={<Login />} />}
-        {!isLoggedIn && <Route path="/signup" element={<SignUp />} />}
+        <Route path="hashtags/:name" element={<Hashtag />}>
+          {isLoggedIn === true && <Route path="photos/upload" element={<Hashtag />} />}
+          <Route path="photos/:id" element={<Hashtag />} />
+        </Route>
+        {isLoggedIn === false && <Route path="/login" element={<Login />} />}
+        {isLoggedIn === false && <Route path="/signup" element={<SignUp />} />}
         <Route path="/*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>

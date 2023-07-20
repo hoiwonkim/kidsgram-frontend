@@ -1,4 +1,3 @@
-// ./src/pages/Home.tsx
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
@@ -272,7 +271,7 @@ const Home = () => {
     <FeedLayout>
       <AnimatePresence>{uploadPhotoPathMath && uploadPhotoPathMath.pathname === "/photos/upload" && <UploadPhoto />}</AnimatePresence>
       <Container>
-        <PageTitle title="Home" />
+        <PageTitle title="홈" />
         <LeftContainer>
           {seeFollowingData?.seeFollowing.following === null || seeFollowingData?.seeFollowing.following?.length === 0 ? null : (
             <FollowingContainer>
@@ -309,9 +308,9 @@ const Home = () => {
             </AsideHeader>
             <AsideMain>
               <AsideMainHeader>
-                <h1>Recommendations for members</h1>
+                <h1>회원님을 위한 추천</h1>
                 <Link to="/users/all">
-                  <span>View all</span>
+                  <span>모두 보기</span>
                 </Link>
               </AsideMainHeader>
               <AsideMainInner>
@@ -338,19 +337,19 @@ const Home = () => {
                 <ul>
                   <li>
                     <a href="https://about.instagram.com" target="_blank" rel="noreferrer">
-                      Introduction
+                      소개
                     </a>
                   </li>
                   <span>∙</span>
                   <li>
                     <a href="https://help.instagram.com" target="_blank" rel="noreferrer">
-                      Help
+                      도움말
                     </a>
                   </li>
                   <span>∙</span>
                   <li>
                     <a href="https://about.instagram.com/blog" target="_blank" rel="noreferrer">
-                      Publicity center
+                      홍보 센터
                     </a>
                   </li>
                   <span>∙</span>
@@ -362,37 +361,37 @@ const Home = () => {
                   <span>∙</span>
                   <li>
                     <a href="https://about.instagram.com/about-us/careers" target="_blank" rel="noreferrer">
-                      Job information
+                      채용 정보
                     </a>
                   </li>
                   <span>∙</span>
                   <li>
                     <a href="https://help.instagram.com/519522125107875/?maybe_redirect_pol=0" target="_blank" rel="noreferrer">
-                      Privacy policy
+                      개인정보처리방침
                     </a>
                   </li>
                   <span>∙</span>
                   <li>
                     <a href="https://help.instagram.com/581066165581870" target="_blank" rel="noreferrer">
-                      Terms
+                      약관
                     </a>
                   </li>
                   <span>∙</span>
                   <li>
                     <a href="https://www.instagram.com/explore/locations" target="_blank" rel="noreferrer">
-                      Location
+                      위치
                     </a>
                   </li>
                   <span>∙</span>
                   <li>
                     <a href="https://www.instagram.com/directory/profiles" target="_blank" rel="noreferrer">
-                      Popular account
+                      인기 계정
                     </a>
                   </li>
                   <span>∙</span>
                   <li>
                     <a href="https://www.instagram.com/directory/hashtags" target="_blank" rel="noreferrer">
-                      Hashtag
+                      해시태그
                     </a>
                   </li>
                 </ul>
